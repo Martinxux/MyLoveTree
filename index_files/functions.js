@@ -55,3 +55,23 @@ function timeElapse(date){
 	var result = "第 <span class=\"digit\">" + days + "</span> 天 <span class=\"digit\">" + hours + "</span> 小时 <span class=\"digit\">" + minutes + "</span> 分钟 <span class=\"digit\">" + seconds + "</span> 秒";
 	$("#clock").html(result);
 }
+
+// 自动播放音乐处理
+document.addEventListener('DOMContentLoaded', function() {
+    var audio = document.querySelector('.song-audio-autoplay');
+    if (audio) {
+        // 监听首次用户交互
+        function handleFirstInteraction() {
+            audio.muted = false;
+            audio.play().catch(function(e) {
+                console.log('自动播放失败:', e);
+            });
+            // 只执行一次
+            document.removeEventListener('click', handleFirstInteraction);
+            document.removeEventListener('touchstart', handleFirstInteraction);
+        }
+        
+        document.addEventListener('click', handleFirstInteraction);
+        document.addEventListener('touchstart', handleFirstInteraction);
+    }
+});
